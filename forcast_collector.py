@@ -14,7 +14,7 @@ if response.status_code == 200:
     # Parse the HTML content of the page
     soup = BeautifulSoup(response.text, 'html.parser')
     
-    index = 9 # the element in the html page I will be scraping
+    index = 0 # the element in the html page I will be scraping
 
     details = soup.find('details', id='detailIndex'+str(index)) # if I want to get any other row, just need change the index, ex: detailIndex1, detailIndex2, ...
 
