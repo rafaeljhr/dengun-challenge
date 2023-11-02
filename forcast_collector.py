@@ -1,13 +1,14 @@
 import json
-import math
 import requests
 from bs4 import BeautifulSoup
 
 # Replace 'url' with the URL of the webpage you want to scrape
 url = 'https://weather.com/weather/hourbyhour/l/ISXX0026:1:IS'
 
+cookies = {'unitOfMeasurement': 'm'}   # found this by inspecting the page and checking how to change the units 
+
 # Send an HTTP GET request to the URL
-response = requests.get(url, headers={'Cache-Control': 'no-cache'}) #sync html source and script
+response = requests.get(url, headers={'Cache-Control': 'no-cache'}, cookies=cookies) #sync html source and script
 
 # Check if the request was successful
 if response.status_code == 200:
@@ -49,15 +50,13 @@ if response.status_code == 200:
         
         DESC   = div_DESC.find('span').text
         TEMP   = div_TEMP.find('span').contents[0].text
-        TEMP_celsius = math.ceil((int(TEMP) - 32) * 5/9) if (int(TEMP) - 32) * 5/9 - int((int(TEMP) - 32) * 5/9) >= 0.5 else math.floor((int(TEMP) - 32) * 5/9)
         PRECIP = div_PRECIP.find('span').text
         
         WIND_spans   = div_WIND.find('span').find_all('span')
-        WIND_1 = WIND_spans[0].text
-        WIND_2 = WIND_spans[1].text
-        WIND_2_KMH = math.ceil((float(WIND_2) * 1.60934)) if (float(WIND_2) * 1.60934) - int((float(WIND_2) * 1.60934)) >= 0.5 else math.floor((float(WIND_2) * 1.60934))
+        WIND_direction = WIND_spans[0].text
+        WIND_value = WIND_spans[1].text
         
-        WIND = WIND_1 + " " + str(WIND_2_KMH) + " km/h"
+        WIND = WIND_direction + " " + WIND_value + " km/h"
         
         # print("TIME: ", TIME)
         # print("DESC: ", DESC)
@@ -75,7 +74,6 @@ if response.status_code == 200:
         ul_childs = div.find_all('li')
         
         FEEL     = ul_childs[0].find('div').find_all('span')[1].contents[0].text
-        FEEL_celsius = math.ceil((int(FEEL) - 32) * 5/9) if (int(FEEL) - 32) * 5/9 - int((int(FEEL) - 32) * 5/9) >= 0.5 else math.floor((int(FEEL) - 32) * 5/9)
         HUMIDITY = ul_childs[2].find('div').find_all('span')[1].text
         
         # print("FEEL: ", FEEL_celsius)
@@ -83,8 +81,8 @@ if response.status_code == 200:
         
         
         forcast_json = { TIME: {'DESC': DESC,
-                        'TEMP': TEMP_celsius,
-                        'FEEL': FEEL_celsius,
+                        'TEMP': TEMP,
+                        'FEEL': FEEL,
                         'PRECIP': PRECIP,
                         'HUMIDITY': HUMIDITY,
                         'WIND': WIND}}
