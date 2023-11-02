@@ -1,4 +1,5 @@
 import json
+import math
 import requests
 from bs4 import BeautifulSoup
 
@@ -47,13 +48,13 @@ if response.status_code == 200:
         
         DESC   = div_DESC.find('span').text
         TEMP   = div_TEMP.find('span').contents[0].text
-        TEMP_celsius = round((int(TEMP) - 32) * 5/9)
+        TEMP_celsius = math.ceil((int(TEMP) - 32) * 5/9)
         PRECIP = div_PRECIP.find('span').text
         
         WIND_spans   = div_WIND.find('span').find_all('span')
         WIND_1 = WIND_spans[0].text
         WIND_2 = WIND_spans[1].text
-        WIND_2_KMH = round((float(WIND_2) * 1.60934))
+        WIND_2_KMH = math.ceil((float(WIND_2) * 1.60934))
         
         WIND = WIND_1 + " " + str(WIND_2_KMH) + " km/h" 
         
@@ -73,7 +74,7 @@ if response.status_code == 200:
         ul_childs = div.find_all('li')
         
         FEEL     = ul_childs[0].find('div').find_all('span')[1].contents[0].text
-        FEEL_celsius = round((int(FEEL) - 32) * 5/9)
+        FEEL_celsius = math.ceil((int(FEEL) - 32) * 5/9)
         HUMIDITY = ul_childs[2].find('div').find_all('span')[1].text
         
         # print("FEEL: ", FEEL_celsius)
