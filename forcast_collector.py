@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 url = 'https://weather.com/weather/hourbyhour/l/ISXX0026:1:IS'
 
 # Send an HTTP GET request to the URL
-response = requests.get(url)
+response = requests.get(url, headers={'Cache-Control': 'no-cache'}) #sync html source and script
 
 # Check if the request was successful
 if response.status_code == 200:
