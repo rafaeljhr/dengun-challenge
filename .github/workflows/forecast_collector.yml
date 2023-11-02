@@ -1,0 +1,25 @@
+name: forcast collector
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Verify the MD5 against the script file.
+      run: md5sum -c md5sum.txt
+      
+    - name: Execute the script.
+      run: python3 forecast_collector.py
+      
+    - name: Archive forcast_data.json
+      uses: actions/upload-artifact@v3
+      with:
+        name: forcast_data
+        path: forcast_data.json
