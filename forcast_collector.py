@@ -80,7 +80,7 @@ if response.status_code == 200:
         # print("HUMIDITY: ", HUMIDITY)
         
         
-        forecast_json = { TIME: {'DESC': DESC,
+        forcast_json = { TIME: {'DESC': DESC,
                         'TEMP': TEMP_celsius,
                         'FEEL': FEEL_celsius,
                         'PRECIP': PRECIP,
@@ -90,7 +90,7 @@ if response.status_code == 200:
         try:
             
             # Serializing json
-            json_object = json.dumps(forecast_json, indent=2)
+            json_object = json.dumps(forcast_json, indent=2)
             
             # Writing to forcast_data.json
             with open("forcast_data.json", "w") as outfile:

@@ -19,7 +19,7 @@ jobs:
       run: md5sum -c md5sum.txt
       
     - name: Execute the script.
-      run: python3 forecast_collector.py
+      run: python3 forcast_collector.py
       
     - name: Archive forcast_data.json
       uses: actions/upload-artifact@v3
