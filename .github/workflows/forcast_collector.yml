@@ -26,5 +26,5 @@ jobs:
     - name: Archive forcast_data.json
       uses: actions/upload-artifact@v3
       with:
-        name: forcast_data
+        name: forcast_data.json
         path: forcast_data.json
