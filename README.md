@@ -12,4 +12,5 @@ Verifying forcast_collector.py checksums on Ubuntu:
 md5sum -c md5sum.txt
 ```
 
-Expected output: **forcast_collector.py: OK**
+Expected output: 
+`#000000 forcast_collector.py: OK`
