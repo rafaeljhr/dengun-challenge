@@ -1,6 +1,6 @@
-# dengun-challenge
+# Dengun Challenge
 
-## MD5 hash verification 
+### MD5 hash verification 
 
 Hashing on Ubuntu: 
 ```
