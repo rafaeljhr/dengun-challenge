@@ -13,7 +13,7 @@ if response.status_code == 200:
     # Parse the HTML content of the page
     soup = BeautifulSoup(response.text, 'html.parser')
 
-    details = soup.find('details', id='detailIndex6') # if I want to get any other row, just need change the index, ex: detailIndex1, detailIndex2, ...
+    details = soup.find('details', id='detailIndex0') # if I want to get any other row, just need change the index, ex: detailIndex1, detailIndex2, ...
 
     if details:
         
