@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 
 # Replace 'url' with the URL of the webpage you want to scrape
-url = 'https://weather.com/weather/hourbyhour/l/ISXX0026:1:IS#detailIndex0'
+url = 'https://weather.com/weather/hourbyhour/l/ISXX0026:1:IS'
 
 # Send an HTTP GET request to the URL
 response = requests.get(url)
@@ -13,14 +13,15 @@ response = requests.get(url)
 if response.status_code == 200:
     # Parse the HTML content of the page
     soup = BeautifulSoup(response.text, 'html.parser')
+    
+    index = 9 # the element in the html page I will be scraping
 
-    details = soup.find('details', id='detailIndex0') # if I want to get any other row, just need change the index, ex: detailIndex1, detailIndex2, ...
+    details = soup.find('details', id='detailIndex'+str(index)) # if I want to get any other row, just need change the index, ex: detailIndex1, detailIndex2, ...
 
     if details:
         
         #### first element inside details
         
-        # scraping
         summary = details.find('summary')
         div_DaypartDetails = summary.find('div')
         div_DetailsSummary = div_DaypartDetails.find('div')
@@ -48,15 +49,15 @@ if response.status_code == 200:
         
         DESC   = div_DESC.find('span').text
         TEMP   = div_TEMP.find('span').contents[0].text
-        TEMP_celsius = math.ceil((int(TEMP) - 32) * 5/9)
+        TEMP_celsius = math.ceil((int(TEMP) - 32) * 5/9) if (int(TEMP) - 32) * 5/9 - int((int(TEMP) - 32) * 5/9) >= 0.5 else math.floor((int(TEMP) - 32) * 5/9)
         PRECIP = div_PRECIP.find('span').text
         
         WIND_spans   = div_WIND.find('span').find_all('span')
         WIND_1 = WIND_spans[0].text
         WIND_2 = WIND_spans[1].text
-        WIND_2_KMH = math.ceil((float(WIND_2) * 1.60934))
+        WIND_2_KMH = math.ceil((float(WIND_2) * 1.60934)) if (float(WIND_2) * 1.60934) - int((float(WIND_2) * 1.60934)) >= 0.5 else math.floor((float(WIND_2) * 1.60934))
         
-        WIND = WIND_1 + " " + str(WIND_2_KMH) + " km/h" 
+        WIND = WIND_1 + " " + str(WIND_2_KMH) + " km/h"
         
         # print("TIME: ", TIME)
         # print("DESC: ", DESC)
@@ -74,7 +75,7 @@ if response.status_code == 200:
         ul_childs = div.find_all('li')
         
         FEEL     = ul_childs[0].find('div').find_all('span')[1].contents[0].text
-        FEEL_celsius = math.ceil((int(FEEL) - 32) * 5/9)
+        FEEL_celsius = math.ceil((int(FEEL) - 32) * 5/9) if (int(FEEL) - 32) * 5/9 - int((int(FEEL) - 32) * 5/9) >= 0.5 else math.floor((int(FEEL) - 32) * 5/9)
         HUMIDITY = ul_childs[2].find('div').find_all('span')[1].text
         
         # print("FEEL: ", FEEL_celsius)
