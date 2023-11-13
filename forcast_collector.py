@@ -2,12 +2,10 @@ import json
 import requests
 from bs4 import BeautifulSoup
 
-# Replace 'url' with the URL of the webpage you want to scrape
 url = 'https://weather.com/weather/hourbyhour/l/ISXX0026:1:IS'
 
 cookies = {'unitOfMeasurement': 'm'}   # found this by inspecting the page and checking how to change the units. Found a cookie with this
 
-# Send an HTTP GET request to the URL
 response = requests.get(url, headers={'Cache-Control': 'no-cache'}, cookies=cookies) #Cache-Control is used for syncing html source and script
 
 # Check if the request was successful
