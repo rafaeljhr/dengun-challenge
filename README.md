@@ -3,8 +3,13 @@
 ## Files present in this repository
 
 - 'forcast_collector.py' : Main challenge file. Python script that will collect the hourly temperature from [here](https://weather.com/weather/hourbyhour/l/ISXX0026:1:IS) and save the data in a json file named "forcast_data.json.
+
 - 'forcast_collector.yml' : GitHub pipeline file.
-- 'md5sum.txt' : MD5Sum gotten from the 'forcast_collector.py' script. This file is generated from a pre-commit hook.
+
+- 'md5sum.txt' : MD5Sum gotten from the 'forcast_collector.py' script. This file is generated from a pre-commit hook. Because hooks are not pushed to the repository, here is a print of it:
+
+<img src="./pre-commit.png" alt="pre-commit hook" width="600"/>
+
 - 'validate_json.py' : Python script that will validate the structure of 'forcast_data.json', outputting True or False, if 'forcast_data.json' structure is in accordance with the challenge.
 
 
