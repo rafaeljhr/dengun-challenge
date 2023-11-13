@@ -106,8 +106,3 @@ if response.status_code == 200:
         print("No details tag found.")
 else:
     print("Failed to retrieve the web page.")
-    
-    
-
-
-# aa
